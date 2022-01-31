@@ -49,6 +49,7 @@ end
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     createBlips()
+end)
 
 
 local matspot = (divingMaterialSpot[math.random(#divingMaterialSpot)])
