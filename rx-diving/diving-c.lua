@@ -66,25 +66,25 @@ Citizen.CreateThread(function()
             if #(playerCoords - divingMaterialSpots) < 100 and IsPedSwimmingUnderWater(playerPed) then
               wait = 0
               DrawText3Ds(matspot.x, matspot.y, matspot.z, "[E] Pick-Up materials")
-              if IsControlJustReleased(1, e_key) and #(playerCoords - matspot) < 1.5 then
-              randomMaterial = (materials[math.random(#materials)])
-              QBCore.Functions.Notify('You Found x1 ' .. randomMaterial)
 
-              if randomMaterial ~= nil then
-              TriggerServerEvent('qb-diving:server:giveItem', randomMaterial)
-            else
-              QBCore.Functions.Notify('You Found Nothing ')
+              if IsControlJustReleased(1, e_key) and #(playerCoords - matspot) < 1.5 then
+                if chance <= 95 then 
+                  TriggerServerEvent('qb-diving:server:giveItem', randomMaterial)
+                  QBCore.Functions.Notify('You Found x1 ' .. randomMaterial)
+                elseif chance >= 5 then
+                  TriggerServerEvent('qb-diving:server:giveItem', 'goldbar')
+                  QBCore.Functions.Notify('You Found x1 goldbar')
+                else
+                  QBCore.Functions.Notify('You Found Nothing')
+                end
+                Wait(1000)
+                matspot = (divingMaterialSpot[math.random(#divingMaterialSpot)])
+              end
             end
-              Wait(1000)
-              matspot = (divingMaterialSpot[math.random(#divingMaterialSpot)])
-           end
-         end
-      end
+          end
       Wait(wait)
    end
 end)
-
-
 
 function DrawText3Ds(x,y,z, text)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
